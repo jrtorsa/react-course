@@ -1,9 +1,21 @@
 import React, { Component } from "react";
+import DatePicker from "react-datepicker";
 import Styles from "./styles";
+import "react-datepicker/dist/react-datepicker.css";
 
 class LaboralApp extends Component {
   state = {
-    salary: ""
+    salary: "",
+    startDate: new Date(),
+    endDate: new Date()
+  };
+
+  handleStartDate = startDate => {
+    this.setState({ startDate: startDate });
+  };
+
+  handleEndDate = endDate => {
+    this.setState({ endDate: endDate });
   };
 
   handleChange = event => {
@@ -15,7 +27,10 @@ class LaboralApp extends Component {
   };
 
   render() {
-    const { salary } = this.state;
+    const { salary, startDate, endDate } = this.state;
+    const dailySalary = Math.floor(salary / 30);
+    console.log({ startDate });
+
     return (
       <Styles>
         <h1 className="title">Laboral App</h1>
@@ -36,23 +51,13 @@ class LaboralApp extends Component {
             <label htmlFor="vacations">Vacaciones</label>
             <input min="1" type="number" placeholder="Dias de Vacaciones" />
           </div>
-          <div className="years">
-            <label htmlFor="years">Años Laborando</label>
-            <input
-              min="1"
-              max="29"
-              type="number"
-              placeholder="Años Laborados"
-            />
+          <div className="startDate">
+            <label htmlFor="startDate">Fecha de Comienzo</label>
+            <DatePicker selected={startDate} onChange={this.handleStartDate} />
           </div>
-          <div className="months">
-            <label htmlFor="months">Meses Laborando</label>
-            <input
-              min="1"
-              max="11"
-              type="number"
-              placeholder="Meses Laborando"
-            />
+          <div className="endDate">
+            <label htmlFor="endDate">Fecha de Terminacion</label>
+            <DatePicker selected={endDate} onChange={this.handleEndDate} />
           </div>
         </div>
         <div className="button">
@@ -63,7 +68,11 @@ class LaboralApp extends Component {
           <div className="body">
             <div className="salary">
               <label>Salario Diario = </label>
-              <input value={Math.floor(salary / 30)} disabled />
+              <input value={dailySalary} disabled />
+            </div>
+            <div className="startDate">
+              <label>Tiempo Laborado = </label>
+              <input value={dailySalary} disabled />
             </div>
           </div>
         </div>

@@ -31,11 +31,11 @@ export default styled.div`
     display: table-row;
   }
 
-  .years {
+  .startDate {
     display: table-row;
   }
 
-  .months {
+  .endDate {
     display: table-row;
   }
 
